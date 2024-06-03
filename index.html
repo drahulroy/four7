@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        .timer {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        .subscribe-form {
+            margin-top: 20px;
+        }
+        input[type="email"] {
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            width: 80%;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background-color: #61dafb;
+            color: #282c34;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #21a1f1;
+        }
+        .contact-info {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #ccc;
+            text-align: left;
+            background-color: #333;
+            padding: 15px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        .contact-info p {
+            margin: 5px 0;
+        }
+        .contact-info strong {
+            display: inline-block;
+            width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Coming Soon</h1>
+        <p>Our website is under construction. We'll be here soon with our new awesome site. Stay tuned!</p>
+        <div class="timer" id="timer">200d 00h 00m 00s</div>
+        <!-- <div class="subscribe-form">
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <button onclick="notifyMe()">Notify Me</button>
+        </div>
+        <div class="contact-info">
+            <p><strong>Name:</strong> Rahul Roy</p>
+            <p><strong>Mobile Number:</strong> +91-9386147147</p>
+            <p><strong>Email:</strong> rahuyltheroy47@gmail.com, rahul@four7.in</p>
+        </div> -->
+    </div>
+    <script>
+        // Set the countdown end date
+        const startDate = new Date("Jun 1, 2024").getTime();
+        const endDate = startDate + 200 * 24 * 60 * 60 * 1000;
+
+        // Update the count down every 1 second
+        const x = setInterval(function() {
+            // Get today's date and time
+            const now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            const distance = endDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="timer"
+            document.getElementById("timer").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            // If the count down is finished, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+
+        function notifyMe() {
+            const email = document.getElementById('email').value;
+            if (email) {
+                fetch('https://four7.in/notify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } else {
+                alert('Please enter your email.');
+            }
+        }
+    </script>
+</body>
+</html>
